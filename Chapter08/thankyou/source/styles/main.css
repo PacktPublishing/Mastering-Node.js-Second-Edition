@@ -1,0 +1,24 @@
+#page_controls {
+	position: fixed;
+	bottom: 20px;
+	font-family: Arial;
+	font-size: 20px;
+}
+#page_controls span {
+	float: left;
+	margin-left: 20px;
+}
+#page_controls #composer {
+	width: 400px;
+	height: 60px;
+	font-size:14px;
+	border:0px;
+	padding: 4px;
+}
+#page_controls button {
+	position: relative;
+	width: 60px;
+	height: 40px;
+	font-size: 12px;
+	top: -36px;
+}

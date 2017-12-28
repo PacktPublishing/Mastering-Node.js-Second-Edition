@@ -1,0 +1,11 @@
+logs
+*.log
+pids
+*.pid
+*.seed
+node_modules
+.idea
+
+# node-waf configuration
+#
+.lock-wscript

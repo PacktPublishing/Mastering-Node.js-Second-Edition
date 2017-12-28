@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+	body {
+		background-color: #C5F5F4;
+	}
+	
+	svg {
+	  font: 10px sans-serif;
+	}
+	
+	.line {
+	  fill: none;
+	  stroke: #a9a9a9;
+	  stroke-width: 1.5px;
+	}
+	
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+	
+	</style>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script>
+	
+	var activeUsers = {};
+
+	var addMonitor = function(activeUserId) {
+
+		var n = 243,
+			duration = 750,
+			now = new Date(Date.now() - duration),
+			data = d3.range(n).map(function() { return 0; });
+		
+		var margin = {top: 6, right: 0, bottom: 20, left: 40},
+			width = 600 - margin.right,
+			height = 100 - margin.top - margin.bottom;
+		
+		var x = d3.time.scale()
+			.domain([now - (n - 2) * duration, now - duration])
+			.range([0, width]);
+		
+		var y = d3.scale.linear()
+			.range([height, 0]);
+		
+		var line = d3.svg.line()
+			.interpolate("basis")
+			.x(function(d, i) { return x(now - (n - 1 - i) * duration); })
+			.y(function(d, i) { return y(d); });
+		
+		var svg = d3.select("#" + activeUserId).append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.style("margin-left", -margin.left + "px")
+		  .append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+		svg.append("defs").append("clipPath")
+			.attr("id", "clip")
+		  .append("rect")
+			.attr("width", width)
+			.attr("height", height);
+		
+		var axis = svg.append("g")
+			.attr("class", "x axis")
+			.attr("transform", "translate(0," + height + ")")
+			.call(x.axis = d3.svg.axis().scale(x).orient("bottom"));
+		
+		var path = svg.append("g")
+			.attr("clip-path", "url(#clip)")
+		  .append("path")
+			.data([data])
+			.attr("class", "line");
+		
+		tick();
+		
+		function tick() {
+		
+		  // update the domains
+		  now = new Date();
+		  x.domain([now - (n - 2) * duration, now - duration]);
+		  y.domain([0, d3.max(data)]);
+		
+		  // push the accumulated count onto the back, and reset the count
+		  data.push(Math.min(40, activeUsers[activeUserId]));
+		  activeUsers[activeUserId] = 0;
+		
+		  // redraw the line
+		  svg.select(".line")
+			  .attr("d", line)
+			  .attr("transform", null);
+		
+		  // slide the x-axis left
+		  axis.transition()
+			  .duration(duration)
+			  .ease("linear")
+			  .call(x.axis);
+		
+		  // slide the line left
+		  path.transition()
+			  .duration(duration)
+			  .ease("linear")
+			  .attr("transform", "translate(" + x(now - (n - 1) * duration) + ")")
+			  .each("end", tick);
+		
+		  // pop the old data point off the front
+		  data.shift();
+		
+		}
+	};
+	
+	var ev = new EventSource('/receive/adminname');
+	
+	ev.addEventListener("open", function() {
+		console.log("Connection opened");
+	});
+	
+	ev.addEventListener("message", function(broadcast) {
+		if(!broadcast || !broadcast.data || broadcast.data === "PING") {
+			return;
+		}
+		
+		var data 	= JSON.parse(broadcast.data);
+		var id 		= data.id;
+		var stub;
+		
+		if(data.kill) {
+			var el = document.getElementById(data.kill);
+			if(el) {
+				el.parentNode.removeChild(el);
+			}
+			return;
+		}
+		
+		if(!document.getElementById(id)) {
+			stub = document.createElement('div');
+			stub.setAttribute('id', id);
+			document.body.appendChild(stub);
+			activeUsers[id] = 0;
+			addMonitor(id);
+		}
+		
+		++activeUsers[id];
+	});
+	
+	</script>
+</head>
+<body>
+
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "chapter_eight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "balancer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "aws-sdk": "^2.175.0"
+  }
+}

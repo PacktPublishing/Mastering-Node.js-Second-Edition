@@ -1,0 +1,17 @@
+{
+  "name": "seneca-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "add.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "seneca": "^3.4.3",
+    "seneca-balance-client": "^0.6.1",
+    "seneca-mesh": "^0.11.0"
+  }
+}

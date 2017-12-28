@@ -1,0 +1,36 @@
+{
+  "name": "logparser",
+  "version": "1.0.0",
+  "description": "Log parser.",
+  "keywords": [
+    "nodejs",
+    "analytics",
+    "logging",
+    "logparser"
+  ],
+  "dependencies": {
+    "clio": "^0.2.5",
+    "moment": "^2.19.3"
+  },
+  "bin": {
+    "slog": "./bin/master.js"
+  },
+  "directories": [
+    "bin"
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sandro Pasquali <spasquali@gmail.com>",
+  "license": "ISC"
+}

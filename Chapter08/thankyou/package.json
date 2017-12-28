@@ -1,0 +1,58 @@
+{
+  "name": "yourwelcome",
+  "version": "1.0.1",
+  "description": "Clients listening to switchboard",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "gulp; pm2 delete thankyou-server; pm2 start pm2.config.js; gulp browsersync",
+    "deploy": "gulp; now --public"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "author": "spasquali@gmail.com",
+  "license": "MIT",
+  "now": {
+    "name": "thankyou",
+    "dotenv": true,
+    "NODE_ENV": "production"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "browser-sync": "^2.18.13",
+    "dotenv": "^4.0.0",
+    "envify": "^4.1.0",
+    "event-stream": "^3.3.4",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "glob": "^7.1.2",
+    "inquirer": "^3.3.0",
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.19.1",
+    "sentiment": "^4.1.0",
+    "through2": "^2.0.3",
+    "ws": "^3.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^14.5.0",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-debug": "^3.1.0",
+    "gulp-eslint": "^4.0.0",
+    "gulp-uglify": "^3.0.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "reactify": "^1.1.1",
+    "uglifyify": "^4.0.4",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

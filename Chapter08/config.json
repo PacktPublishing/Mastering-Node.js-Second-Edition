@@ -1,0 +1,10 @@
+{
+	"accessKeyId"		: "your_access_key",
+	"secretAccessKey"	: "your_secret_key",
+	"region"			: "us-east-1",
+	"apiVersions"		: {
+  		"s3"		: "2006-03-01",
+  		"ses"		: "2010-12-01",
+  		"dynamodb"	: "2012-08-10"
+	}
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Untitled</title>
+	<script>
+		var connection = new WebSocket('ws://127.0.0.1:2113', ['json']);
+
+		connection.onopen = function() {
+			var userId = 'user' + parseInt(Math.random()*10e10);
+			document.onmousemove = function(e) {
+				connection.send(JSON.stringify({
+					id	: userId,
+					x	: e.x,
+					y	: e.y
+				}));
+			}
+		};
+
+		connection.onerror = function(error) {
+			alert("Communication Breakdown!");
+			console.log(error);
+		};
+		
+		connection.onmessage = function(e) {
+		};
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>
+
+

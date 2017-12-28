@@ -1,0 +1,9 @@
+{
+name" : "Marcus",
+    "age" : 43,
+    "interests" : [
+        "node development",
+        "euphonium",
+        "lean"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+  "lambda": {
+    "role": "claudiaapi-executor",
+    "name": "claudiaapi",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "r8r80rsu92",
+    "module": "app"
+  }
+}
+

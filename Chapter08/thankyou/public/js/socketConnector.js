@@ -1,0 +1,1 @@
+"use strict";var host=window.document.location.host.replace(/:.*/,""),ws=new WebSocket("ws://"+host+":8080");ws.sendMessage=function(s,e){this.send(JSON.stringify({command:s||"",message:e||""}))};

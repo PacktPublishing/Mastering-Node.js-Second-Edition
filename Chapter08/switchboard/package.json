@@ -1,0 +1,23 @@
+{
+  "name": "switchboard",
+  "version": "1.0.1",
+  "description": "Master dispatcher for thankyou system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "author": "spasquali@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "level": "^2.0.0",
+    "level-live-stream": "^1.4.12",
+    "restify": "^6.2.3",
+    "twilio": "^3.9.0",
+    "ws": "^3.2.0"
+  }
+}

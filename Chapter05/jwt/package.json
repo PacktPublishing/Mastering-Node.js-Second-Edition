@@ -1,0 +1,20 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "using jwt with express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "jwt"
+  ],
+  "author": "sandro pasquali <spasquali@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.10.2",
+    "jwt-simple": "^0.2.0",
+    "multer": "^0.1.6"
+  }
+}

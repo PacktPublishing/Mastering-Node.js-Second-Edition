@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Draw Something</title>
+        
+        <style type="text/css">
+        
+		body {
+			background	: #7AA2B9;
+			overflow	: hidden;
+		}
+        
+		#pointers {
+			position	: relative;
+		}
+
+		#pointers .pointer {
+			position	: absolute;
+			width		: 15px;
+			height		: 22px;
+			background	: url('/pointer.png') no-repeat -4px 0;
+		}
+
+        </style>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/script.js"></script>
+    </head>
+    
+    <body>
+		<div id="pointers"></div>
+		<canvas id="canvas" width="2000" height="1000"></canvas>
+    </body>
+</html>

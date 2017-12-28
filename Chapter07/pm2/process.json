@@ -1,0 +1,32 @@
+{
+  "apps" : [{
+    "name" : "server",
+    "script" : "./server.js",
+    "watch": [
+      "index.js",
+      "start.sh",
+      "server",
+      "config",
+      "models",
+      "bin",
+      ".babelrc",
+      "pm2_dev.json",
+      "pm2_prod.json",
+      "app/*/tests/*.test",
+      "app/*/widgets/*/*.json" // typically schema.json files; reload server
+    ],
+    "ignore_watch": [
+      "**/*.log",
+      "server/cache",
+      "models/system" // System writes here on load; "endless loop" if watched
+    ],
+    "watch_options": {
+      "followSymlinks": false
+    },
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "instances" : 4,
+    "exec_mode" : "cluster"
+  }]
+}

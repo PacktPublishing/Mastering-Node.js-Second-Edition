@@ -1,0 +1,15 @@
+{
+  "name": "chapter_six_ajax",
+  "version": "1.0.0",
+  "description": "Ajax stock ticker",
+  "main": "stocks_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node stocks_server.js"
+  },
+  "author": "Sandro Pasquali <spasquali@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}

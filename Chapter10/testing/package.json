@@ -1,0 +1,27 @@
+{
+  "name": "testingtesting",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./spec --require ./spec/helpers/chai.js --reporter spec"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1",
+    "redis": "^2.8.0",
+    "sinon": "^4.1.2"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "heapdump": "^0.3.9",
+    "http-server": "^0.10.0",
+    "memeye": "^1.0.3",
+    "nightmare": "^2.10.0",
+    "node-oom-heapdump": "^1.0.11",
+    "puppeteer": "^0.13.0",
+    "v8-profiler": "^5.7.0"
+  }
+}

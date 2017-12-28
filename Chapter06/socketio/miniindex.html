@@ -1,0 +1,12 @@
+<html>
+<head>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect('http://localhost');
+		socket.on('broadcast', function(data) {
+			console.log("Server sent: " + data);
+			socket.emit('clientmessage', { message: 'ohai!' });
+		});
+	</script>
+</head>
+</html>

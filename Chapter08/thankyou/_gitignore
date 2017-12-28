@@ -1,0 +1,20 @@
+# Logs
+#
+logs
+*.log
+
+## ide
+#
+.idea
+
+## config
+#
+.env
+
+# Runtime data
+#
+pids
+*.pid
+*.seed
+
+node_modules

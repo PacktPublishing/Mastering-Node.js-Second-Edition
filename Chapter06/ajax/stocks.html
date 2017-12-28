@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head><title>YQL Stock updating</title>
+<style type="text/css">
+
+	#symbol {
+		width: 200px;
+		text-align: center;
+		height:30px;
+		font-weight: bold;
+		font-size: 20px;
+		margin: 20px;
+	}
+
+	.row {
+		width: 700px;
+	}
+	
+	.property {
+		width: 300px;
+		height: 20px;
+		float: left;
+	}
+	
+	.curvalue {
+		width: 150px;
+		height: 20px;
+		float: left;
+	}
+	
+	.prevvalue {
+		width: 150px;
+		height: 20px;
+		float: left;
+	}
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+$.fn.highlight = function(color, speed) {
+	
+	if(typeof color === "number") {
+		speed = color;
+		color = void 0;
+	}
+	
+	color = color || "#ffff99";
+	speed = speed || 1000;
+    $(this).each(function () {
+    
+        let $el	= $(this);
+        let offset = $el.offset();
+        
+		$el.css("color", color);
+        
+        $("<div/>")
+        .width($el.outerWidth())
+        .height($el.outerHeight())
+        .css({
+            "position": "absolute",
+            "left": offset.left,
+            "top": offset.top,
+            "background-color": color,
+            "opacity": ".6",
+            "z-index": "9999999"
+        })
+        .appendTo('body')
+        .fadeOut(1000)
+        .queue(function () { 
+        	$(this).remove();
+        });
+    });
+};
+
+$(function() {
+
+	let symbolData 	= {};
+	let caller;
+	
+	//	Create the results container.
+	//
+	$(document.body).append('<div id="results"></div>');
+	let $results = $("#results");
+		
+	let fetchNumericFields = function(res) {
+		var p;
+		var out = [];
+		
+		for(p in res) {
+			$.isNumeric(res[p]) && out.push(p);
+		}
+		
+		return out;
+	};
+	
+	let createDisplay = function(symbol) {
+		$.each(symbolData[symbol], function(prop, val) {
+			$results.append('<div class="row"><div class="property">' + prop + '</div><div class="prevvalue"></div><div class="curvalue"></div></div>');
+		});
+	};
+	
+	function updateDisplay(symbol, quote, keys) {
+		let sd = symbolData[symbol];
+		let idx = 0;
+		$.each(sd, function(prop, last) {
+
+			last = +last;
+
+			let cur = +quote[prop];
+			let $chil = $results.children().eq(idx++).children();
+			
+			$chil.eq(1).text(last);
+			
+			let $cur = $chil.eq(2).text(cur);
+
+			$cur.css("color", "#000000");
+			
+			if(cur !== last) {
+                $cur.highlight(cur > last ? "#27A223" : "#ff0000");
+                symbolData[symbol][prop] = cur;
+			}
+		});
+	}
+	
+	function fetch() {
+	
+		clearTimeout(caller);
+		
+		let symbol = $("#symbol").val();
+		
+		$.getJSON(`/?symbol=${symbol}`, function(data) {
+
+			if(!data.callIn) {
+				return;
+			}
+
+			caller = setTimeout(fetch, data.callIn);
+	
+			if(data.error) {
+				return console.error(data.error);
+			}
+
+			let quote = data.quote;
+			let keys = fetchNumericFields(quote);
+
+			if(!symbolData[symbol]) {
+				symbolData[symbol] = {};
+				$.each(keys, function(idx, prop) {
+					symbolData[symbol][prop] = quote[prop];
+				});
+			}
+			
+			if($results.children().length < 1) {
+				createDisplay(symbol);
+			}
+			
+			updateDisplay(symbol, quote, keys);
+		});
+	}
+	
+	$("#symbol").keydown(function(k) {
+		if(k.keyCode === 13) {
+			fetch();
+		}
+	});
+
+});
+</script>
+	
+</head>
+<body>
+
+<div> 
+	<input id="symbol" placeholder="Type Symbol" />   
+</div>       
+
+
+</body>
+</html>

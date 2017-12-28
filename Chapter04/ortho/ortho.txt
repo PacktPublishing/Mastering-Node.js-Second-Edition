@@ -1,0 +1,557 @@
+
+
+
+
+notes on the electron file manager
+orthodox file manager, ortho for short
+version 0.01 featureset:
+shows listing of files in current folder
+click to navigate into folders, click .. to go up
+
+
+
+
+
+
+
+
+$ npm install -g electron
+$ npm install -S electron
+
+$ ./node_modules/.bin/electron --version
+$ electron --version
+$ electron
+$ electron .
+
+and now, nothing works, except cloning electron's quick start
+
+$ git clone https://github.com/electron/electron-quick-start ortho
+$ npm install
+$ npm start
+
+control+r to reload
+control+alt+i to bring up dev tools
+
+
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Hello World!</title>
+	</head>
+	<body>
+		<h1>Hello World!</h1>
+		We are using node <script>document.write(process.versions.node)</script>,
+		Chrome <script>document.write(process.versions.chrome)</script>,
+		and Electron <script>document.write(process.versions.electron)</script>.
+	</body>
+</html>
+
+
+
+
+
+
+
+
+ortho
+https://en.wikipedia.org/wiki/File_manager#Orthodox_file_managers
+
+$ mkdir ortho
+$ cd ortho
+$ npm init
+$ npm install electron
+
+main.js
+renderer.js
+
+trying to
+$ npm install -g electron
+or
+$ sudo npm install -g electron
+but both fail
+if that worked, then you could
+$ electron .
+to run things, instead you have to hit the copy in this project, which has a crazy long path on mac, like
+$ node_modules/electron/dist/Electron.app/Contents/MacOS/Electron .
+
+get the version of electron and confirm it's there
+$ electron --version
+if its installed globally
+$ node_modules/electron/dist/Electron.app/Contents/MacOS/Electron --version
+v1.7.9
+
+or nevermind there seems to be a shortcut that works cross platform now (try it on windows, though)
+$ ./node_modules/.bin/electron --version
+v1.7.9
+
+-- ortho2: instead, starting from react, then adding electron --
+
+>steps to get back to where you were
+
+$ cd ortho2
+two tabs so you can run these at the same time
+$ npm start
+opens a browser tab and navigates to App.js
+$ npm run electron
+runs electron navigated to App.js
+
+>steps you took to make it from the start
+
+ok, now let's get React in here
+(random googling)
+found these notes
+https://medium.freecodecamp.org/building-an-electron-application-with-create-react-app-97945861647c
+
+$ sudo npm install -g create-react-app
+$ create-react-app --version
+1.4.3
+
+start in the outer folder, where you'd type $ mkdir ortho
+$ create-react-app ortho
+$ cd ortho
+
+$ npm install -D electron
+
+-- back to ortho1 --
+
+the problem here isn't react, exactly, it's webpack
+and ortho is really simple anyways
+so just go back to ortho1, src in jquery like it's 2005, and hit the dom directly
+you'll have to refresh electron after code changes, but who cares
+
+why not just use react without webpack?
+because you need babel to turn jsx into the mess it becomes
+ok, so how about vue
+you could see if vue has a hello-world example taht works in index.html dragged into your browser
+and if so, that should work the same way when you drag it into electron
+
+yeah, vue has a script tag
+https://vuejs.org/v2/guide/
+<script src="https://unpkg.com/vue"></script>
+
+
+
+
+
+
+
+
+
+
+
+## Present working directory
+
+/folder1/folder2/folder
+
+## Contents
+
+.. [Go]
+folder1 [Go]
+item2
+item3
+
+## Commands
+
+[Cut] [Copy] [Paste] [Delete]
+
+## Clipboard
+
+item1
+item2
+
+[Clear]
+
+## Status
+
+Copying /folder1/file to /destination
+Copying /fodler1/file/something
+
+[Stop]
+
+## Errors
+
+
+
+
+
+
+so what components do you need?
+
+list of things that can grow and shrink
+
+text that can notice when it gets clicked
+can show if it's selected or not with a background color
+can programatically be selected or not selected, and changes its background color
+
+text that can notice when it gets clicked
+can be grayed out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var app = new Vue({
+	el: '#app',
+	data: {
+		title: 'Hello Vue!',
+		isDisabled: true
+	},
+	methods: {
+		snip() {
+			console.log("snip");
+			this.isDisabled = true;
+		}
+	},
+});
+
+
+
+
+
+<div id="app">
+	<button :disabled="isDisabled" v-on:click="snip">Snip</button>
+	<p>{{ title }}</p>
+	<app-user></app-user>
+	<my-button id="snip-button"></my-button>
+
+
+
+
+
+app.message = "new value instead";
+app.isDisabled = false;
+
+console.log(typeof app);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Vue.component("app-user", {
+	data() {
+		return {
+			users: [
+				{username: "Max"},
+				{username: "Chris"},
+				{username: "Anna"}
+			]
+		};
+	},
+	template: `
+		<div>
+			<div class="user" v-for="user in users">
+			<p>Username: {{ user.username }}</p>
+			</div>
+		</div>
+	`
+});
+
+Vue.component("my-note", {
+	data() {
+		return {
+			message: "hi"
+		};
+	},
+	template: `
+		<div>
+			<p>Note: {{ message }}</p>
+		</div>
+	`
+});
+
+Vue.component("my-button", {
+	template: '<button :disabled="isDisabled" v-on:click="snip">{{ name }}</button>',
+	data() {
+		return {
+			name: "Snip",
+			isDisabled: false
+		};
+	},
+	methods: {
+		snip() {
+			console.log("snip!");
+		}
+	}
+});
+
+
+
+
+
+
+
+
+
+
+/*
+
+3 components
+
+my-app, the whole thing
+my-list, a list that can grow or shrink to hold some number of things
+my-item, a selectable file listing
+my-button, a button that can be grayed out
+
+
+
+*/
+
+
+
+
+make a component for a listing
+
+
+
+
+
+
+
+
+shows the list
+click something: if it's a directory, navigate into it
+if it's an image, show it
+there's an up button
+
+
+
+
+
+
+<h2>Current working directory</h2>
+<div id="directory-div">{{ show }}</div>
+
+<h2>Contents</h2>
+<div id="contents-div">
+	<ul>
+		<li v-for="person in persons">{{ person.name }}</li>
+	</ul>
+</div>
+
+<h2>Commands</h2>
+<button :disabled="!enable" @click="clicked" id="cut-button">{{ title }}</button>
+<button :disabled="!enable" @click="clicked" id="copy-button">{{ title }}</button>
+<button :disabled="!enable" @click="clicked" id="paste-button">{{ title }}</button>
+<button :disabled="!enable" @click="clicked" id="delete-button">{{ title }}</button>
+
+<h2>Clipboard</h2>
+<div id="clipboard-div">{{ show }}</div>
+<button id="clear-button" v-on:click="clicked">Clear</button>
+
+<h2>Status</h2>
+<div id="status-div">{{ show }}</div>
+<button id="stop-button" v-on:click="clicked">Stop</button>
+
+<h2>Errors</h2>
+<div id="errors-div">{{ show }}</div>
+
+<hr>
+
+
+
+
+
+
+var vueDirectory = new Vue({
+	el: '#directory-div',
+	data: {
+		show: "(present working directory)"
+	}
+});
+var vueContents = new Vue({
+	el: '#contents-div',
+	data: {
+		persons: [
+			{name: "Max", age: 27},
+			{name: "Chris", age: 30},
+			{name: "Nora", age: 25}
+		]
+	}
+});
+var vueClipboard = new Vue({
+	el: '#clipboard-div',
+	data: {
+		show: "(clipboard)"
+	}
+});
+var vueStatus = new Vue({
+	el: '#status-div',
+	data: {
+		show: "(status)"
+	}
+});
+var vueErrors = new Vue({
+	el: '#errors-div',
+	data: {
+		show: "(errors)"
+	}
+});
+
+
+
+var vueCut = new Vue({
+	el: '#cut-button',
+	data: {
+		title: "Cut",
+		enable: true
+	},
+	methods: {
+		clicked() {
+			console.log("clicked cut");
+		}
+	},
+});
+var vueCopy = new Vue({
+	el: '#copy-button',
+	data: {
+		title: "Copy",
+		enable: true
+	},
+	methods: {
+		clicked() {
+			console.log("clicked copy");
+		}
+	},
+});
+var vuePaste = new Vue({
+	el: '#paste-button',
+	data: {
+		title: "Paste",
+		enable: true
+	},
+	methods: {
+		clicked() {
+			console.log("clicked paste");
+		}
+	},
+});
+var vueDelete = new Vue({
+	el: '#delete-button',
+	data: {
+		title: "Delete",
+		enable: true
+	},
+	methods: {
+		clicked() {
+			console.log("clicked delete");
+		}
+	},
+});
+var vueClear = new Vue({
+	el: '#clear-button',
+	data: {
+		title: "Clear",
+		enable: true
+	},
+	methods: {
+		clicked() {
+			console.log("clicked clear");
+			vueCut.enable = true;
+		}
+	},
+});
+var vueStop = new Vue({
+	el: '#stop-button',
+	data: {
+		title: "Stop",
+		enable: true
+	},
+	methods: {
+		clicked() {
+			console.log("clicked stop");
+
+
+			vueCut.enable = false;
+		}
+	},
+});
+
+Vue.component('button-component', {
+  props: ['p'],
+  template: '<button @click="clicked(p.name)">{{ p.name }}</button>',
+  methods: {
+  	clicked(n) {
+  		console.log("button component clicked: " + n);
+  	}
+  }
+})
+
+
+
+
+function main() {
+
+	var directory = vueDirectory.show = process.cwd();
+
+	fs.readdirAsync(directory).then(function(files) {
+		console.log(files);
+
+
+		var a = [];
+		for (var i = 0; i < files.length; i++) {
+			a.push({ id: i, name: files[i], age: 10 });
+
+
+
+
+		}
+		snip.files = a;
+
+		var p = path.format({ dir: directory, base: files[12] });
+
+		console.log(p);
+
+		return fs.lstatAsync(p);
+
+	}).then(function(stats) {
+		console.log(stats);
+
+		if (stats.isDirectory()) {
+			console.log("yeah, that's a folder");
+		} else {
+			console.log("no, not a folder");
+		}
+
+
+
+	}).catch(function(e) {
+		console.log(e.stack);
+	});
+
+
+
+}
+main();
+
+
+
+
+
+
+
+
+
+
+
+
