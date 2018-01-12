@@ -31,6 +31,3 @@ The examples in this book are built and tested within UNIX-based environments (i
 * [Advanced Server-Side Programming with Node.js [Video]](https://www.packtpub.com/web-development/advanced-server-side-programming-nodejs-video?utm_source=github&utm_medium=repository&utm_campaign=9781787289963)
 
 * [Server-side Programming with Node.js for Beginners [Video]](https://www.packtpub.com/business/server-side-programming-nodejs-beginners-video?utm_source=github&utm_medium=repository&utm_campaign=9781788476126)
-
-### Suggestions and Feedback
-[Click here](https://docs.google.com/forms/d/e/1FAIpQLSe5qwunkGf6PUvzPirPDtuy1Du5Rlzew23UBp2S-P3wB-GcwQ/viewform) if you have any feedback or suggestions.
