@@ -15,7 +15,7 @@ async function profile() {
     let address = await db.getAddress(); // 10 Clean Street
     let favorites = await db.getFavorites(); // Lean
 
-    return res =  {fullName, address, favorites};
+    return [fullName, address, favorites];
 }
 
 profile().then(res => console.log(res)); // results = ['Jack Spratt', '10 Clean Street', 'Lean'
