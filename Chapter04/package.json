@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "formidable": "^1.1.1"
+    "formidable": "^3.2.4"
   }
 }
